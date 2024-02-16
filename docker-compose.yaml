@@ -1,0 +1,32 @@
+version: "3.7"
+
+# declare services
+services:
+
+  # create item-app container
+  item-app:
+
+    # image used for the container
+    image: ghcr.io/agungfazrulhaq/item-app:v1
+
+    # port mapping
+    ports:
+      - 80:8080
+
+    # in case of failure, restart the container deployment
+    restart: on-failure
+
+    # control startup of item-app container to depend on item-db
+    depends_on:
+      - item-db
+
+  item-db:
+    image: mongo:3
+
+    # attach persistent volume
+    volumes:
+      - app-db:/data/db
+
+# create volumes
+volumes:
+  app-db:
