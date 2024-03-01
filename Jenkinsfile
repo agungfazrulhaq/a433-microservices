@@ -1,5 +1,7 @@
 node {
+    checkout scm
     stage('Check Dockerfile with Hadolint') {
+        sh 'pwd'
         sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
     }
 
