@@ -1,5 +1,4 @@
 node {
-    agent none
     checkout scm
 
     // Ensure the desired Go version is installed for all stages,
