@@ -7,7 +7,11 @@ node {
     }
 
     stage('Run Go Tests') {
-        sh 'docker run --rm -v $(pwd):/app -w /app golang:1.22.0 sh -c "go test -v -short --count=1 $(go list ./...)"'
+        docker.image('golang:1.22.0').withRun('-v $(pwd):/app -w /app') { 
+            docker.image('golang:1.22.0').inside {
+                    sh 'go test -v -short --count=1 $(go list ./...)'
+            }
+        }
     }
 
     stage('Build and Push Docker Image') {
