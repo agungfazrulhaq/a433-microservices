@@ -7,6 +7,7 @@ node {
     }
 
     stage('Run Go Tests') {
+        sh 'ls'
         sh 'docker run --rm -v $(pwd):/app -w /app golang:1.22.0 go test -v -short --count=1 $(go list ./...)'
     }
 
