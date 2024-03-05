@@ -1,8 +1,5 @@
 node {
     checkout scm
-    // Ensure the desired Go version is installed for all stages,
-    // using the name defined in the Global Tool Configuration
-    def root = tool type: 'go', name: '1.19'
     
     stage('Check Dockerfile with Hadolint') {
         sh 'cat Jenkinsfile'
