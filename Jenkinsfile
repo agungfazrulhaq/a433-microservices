@@ -8,8 +8,10 @@ node {
 
     stage('Run Go Tests') {
         def workspacePath = pwd()
-        docker.image('golang:1.22.0-alpine').inside('-v ${workspacePath}:/app -w /app'){
-            sh 'go test -v -short --count=1 $(go list ./...)'
+        docker.image('golang:1.22.0-alpine').inside("-w /app") {
+            withVolumes([hostPath(volume: workspacePath, containerPath: '/app')]){
+                sh 'go test -v -short --count=1 $(go list ./...)'
+            }
         }
     }
 
