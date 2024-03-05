@@ -7,7 +7,8 @@ node {
     }
 
     stage('Run Go Tests') {
-        docker.image('golang:1.22.0-alpine').inside('-v $(pwd):/app -w /app'){
+        def workspacePath = pwd()
+        docker.image('golang:1.22.0-alpine').inside('-v ${workspacePath}:/app -w /app'){
             sh 'go test -v -short --count=1 $(go list ./...)'
         }
     }
