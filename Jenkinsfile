@@ -10,9 +10,7 @@ node {
     }
 
     stage('Run Go Tests') {
-        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-            sh 'go test -v -short --count=1 $(go list ./...)'
-        }
+        sh 'docker run --rm -v $(pwd):/app -w /app golang:1.22.0 go test -v -short --count=1 $(go list ./...)'
     }
 
     stage('Build and Push Docker Image') {
