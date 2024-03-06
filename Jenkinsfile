@@ -7,8 +7,13 @@ node {
     }
 
     stage('Run Go Tests') {
-            docker.image('golang:1.22.0').inside('-u 0') {
-                    sh 'go test -v -short --count=1 $(go list ./...)'
+            // docker.image('golang:1.22.0').inside('-u 0') {
+            //         sh 'go test -v -short --count=1 $(go list ./...)'
+            // }
+            // Jenkins stuck at running docker and raising timeout error 180, somehow
+            docker.image('golang:1.22.0').withRun('--name golang_env -v $(pwd):/app -w /app') { c ->
+                sh 'alias go="docker exec -it golang_env go"'
+                sh 'go test -v -short --count=1 $(go list ./...)'
             }
     }
 
