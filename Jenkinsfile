@@ -1,11 +1,12 @@
 node {
     checkout scm
     
+    // Stage Dockerfile Check
     stage('Check Dockerfile with Hadolint') {
-        sh 'cat Jenkinsfile'
         sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
     }
 
+    // Build and Push Docker Image to Github Package
     stage('Build and Push Docker Image') {
         def IMAGE_NAME="karsajobs-ui"
         def IMAGE_TAG="latest"
