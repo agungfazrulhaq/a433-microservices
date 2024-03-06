@@ -7,7 +7,7 @@ node {
     }
 
     stage('Run Go Tests') {
-            docker.image('golang:1.22.0').inside {
+            docker.image('golang:1.22.0').inside('-u 0') {
                     sh 'go test -v -short --count=1 $(go list ./...)'
             }
     }
