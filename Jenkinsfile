@@ -8,7 +8,8 @@ node {
 
     stage('Run Go Tests') {
             def currentDir = pwd()
-            docker.image('golang:1.21.4').inside('-u root') {
+            docker.image('golang:1.21.4').inside('-u root -e WORKSPACE_PATH=${currentDir}') {
+                    sh 'echo ${currentDir}'
                     sh 'git config --global --add safe.directory ${currentDir}'
                     sh 'go test -v -short --count=1 $(go list ./...)'
             }
