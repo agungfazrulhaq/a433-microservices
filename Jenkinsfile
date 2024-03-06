@@ -8,9 +8,8 @@ node {
 
     stage('Run Go Tests') {
             def currentDir = pwd()
-            docker.image('golang:1.21.4').inside('-u root -e WORKSPACE_PATH=${currentDir}') {
-                    sh 'echo ${currentDir}'
-                    sh 'git config --global --add safe.directory ${currentDir}'
+            docker.image('golang:1.21.4').inside('-u root') {
+                    sh 'git config --global --add safe.directory $(pwd)'
                     sh 'go test -v -short --count=1 $(go list ./...)'
             }
             // Jenkins stuck at running docker and raising timeout error 180, somehow
