@@ -18,7 +18,7 @@ node {
         def IMAGE_NAME="karsajobs"
         def IMAGE_TAG="latest"
         withCredentials([usernamePassword(credentialsId: 'full-access', usernameVariable: 'username', passwordVariable: 'ghcr_token')]) {
-            docker.build('ghcr.io/$username/${IMAGE_NAME}:${IMAGE_TAG}')
+            sh 'docker build -t ghcr.io/$username/$IMAGE_NAME:$IMAGE_TAG .'
             sh 'echo $username'
             sh 'echo $ghcr_token'
         }
