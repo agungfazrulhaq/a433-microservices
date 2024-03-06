@@ -17,7 +17,7 @@ node {
     stage('Build and Push Docker Image') {
         withCredentials([usernamePassword(credentialsId: 'full-access', usernameVariable: 'username', passwordVariable: 'ghcr_token')]) {
             sh 'echo $username'
-            sh "echo $password"
+            sh 'echo $ghcr_token'
         }
         // sh 'docker build -t jenkins-karsajobs:test1 .'
     }
